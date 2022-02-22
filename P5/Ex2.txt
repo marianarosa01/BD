@@ -1,0 +1,208 @@
+-- EXERCICIO 5.1 
+-- G1P3: Anastasiya Lykholat 93436, Mariana Rosa 98390
+
+
+-- a)------------------------------------------------------------
+/*
+-- Lista de fun a trabalhar em projetos
+q1= π Essn,Pno (works_on)
+-- Lista de fucionarios
+q2= π Fname,Minit,Lname,Ssn (employee)
+-- Solucao da alinea a)
+π Pno,Fname,Minit,Lname,Ssn (q1 ⨝ Essn=Ssn (q2))
+*/
+
+
+
+-- b)-------------------------------------------------------------
+/*
+π Fname,Minit,Lname (employee ⨝ Super_ssn=super.Ssn ( ρ super (π Ssn ((σ (Fname='Carlos'∧ Minit='D'∧ Lname='Gomes') (employee))))))
+*/
+
+
+-- c)------------------------------------------------------------
+/*
+γ Pno;sum(Hours)->totalHours (works_on) 
+*/
+
+
+-- d)------------------------------------------------------------
+/*
+-- Seleçao de todos os func que trabalham no projeto 'Aveiro Digital'
+q1= σ Hours>20 (works_on ⨝ Pno=super.Pnumber (ρ super (π Pnumber (σ (Pname='Aveiro Digital') (project)))))
+
+-- Selecao de todos os fun do dep 3
+q2= σ Dno=3 (employee)
+
+π employee.Fname,employee.Minit,employee.Lname (q1 ⨝ works_on.Essn=employee.Ssn (q2))
+*/
+
+-- e)------------------------------------------------------------
+/*
+q1 = π Ssn,Fname,Minit,Lname (employee)
+q2 = π Essn (works_on)
+
+σ works_on.Essn=null (q1 ⟕ Ssn=Essn (q2))
+*/
+
+-- f)------------------------------------------------------------
+/*
+q1= (σ Sex='F' (π Ssn,Sex,Salary,Dno (employee)))
+γ Dno;avg(Salary)->AvgSalary (q1)
+*/
+
+-- g)------------------------------------------------------------
+
+/*
+-- Lista de dependentes e do seu encarregado
+q1= (π Essn,Dependent_name (dependent))
+-- Numero de dependentes de cada encarregado
+q2= γ Essn;count(Essn)->ndependentes (q1)
+-- Ssn dos Funcionarios com mais de 2 dependentes
+q3= σ ndependentes>2 (q2)
+-- Lista de func e os seus ssn's
+q4= π Fname,Minit,Lname,Ssn (employee)
+
+π Fname,Minit,Lname (q3 ⨝ Essn=Ssn (q4))
+*/
+
+-- h)------------------------------------------------------------
+/*
+-- Lista de dependentes e do seu encarregado
+q1= (π Essn,Dependent_name (dependent))
+-- Lista de Ssn dos gestores (gestores não têm super_ssn)
+q2= σ Super_ssn=null (π Super_ssn,Ssn,Fname,Minit,Lname (employee))
+-- Lista de gestores e dependentes associados
+q3= q1 ⟖ Essn=Ssn (q2)
+-- Lista de gestores sem dependentes associados
+π Fname,Minit,Lname (σ Essn=null (q3))
+*/
+
+-- i)------------------------------------------------------------
+
+/*
+-- Lista de projetos em Aveiro
+q1= σ Plocation='Aveiro' (π Pnumber,Plocation (project))
+
+-- Lista de projetos a serem executados por funcionarios
+q2= π Essn,Pno (works_on)
+
+-- Func que trabalham em projetos em Aveiro
+q3= π Essn (q1 ⨝ Pnumber=Pno (q2))
+
+-- Lista de funcionarios cujo departamento se localiza fora de Aveiro
+
+q4= σ Dlocation ≠ 'Aveiro' (π Dnumber,Dlocation (dept_location))
+
+q5= (π Fname,Minit,Lname,Ssn,Address,Dno (employee))
+q6= q4 ⨝ Dnumber=Dno (q5)
+... (13 lines left)
+
+
+
+-- Ex. 2
+
+-- 2a)
+-- lista de fornecedores
+q1 = π nif,nome (fornecedor)
+q2 = π numero,fornecedor (encomenda)
+-- selecionar da lista de fornecedores, quais nao tem encomendas
+π fornecedor.nome (σ encomenda.fornecedor=null (q1 ⟕ fornecedor=null (q2)))
+
+-- 2b)
+-- lista dos itens
+q1= π numEnc,codProd,unidades (item)
+
+-- a media das unidades encomendadas por cada produto
+γ codProd; avg(unidades)->MediaUnidades (q1)
+
+-- 2c) 
+
+q1= π numEnc,codProd (item)
+
+q2= γ numEnc; count(codProd)->Variedade (q1)
+
+-- Media de prods por encomenda
+γ avg(Variedade)->Media (q2)
+
+-- 2d)
+
+q1 = π numEnc,codProd,unidades (item)
+
+q2 = π numero,fornecedor (encomenda)
+
+q3 = q1 ⨝ numEnc=numero (q2)
+
+γ fornecedor, codProd; sum(unidades)->TotalUnidades (q3)
+
+-- Ex.3--------------------------------------------
+
+-- 3a)--------------------------------------------
+--sem prescricoes:
+σ numPresc=0
+(γ paciente.nome;count(numPresc)-> numPresc
+(prescricao ⟖ prescricao.numUtente = paciente.numUtente (paciente)))
+
+
+-- 3b)----------------------------------------------
+
+-- lista de médicos
+q1= π numSNS,especialidade (medico)
+
+-- lista de prescricoes atribuidas pelos medicos
+q2= π numPresc, numMedico (prescricao)
+
+q3= q1 ⨝ numSNS=numMedico (q2)
+
+
+-- Num de prescrições por especialidade médica
+γ especialidade; count(numPresc)->TotalPresc (q3)
+
+
+-- 3c)----------------------------------------------
+
+q1= π numPresc,farmacia (prescricao)
+
+-- Num prescrições processadas por farmácia
+σ farmacia≠null (γ farmacia; count(numPresc)->TotalPresc (q1))
+
+-- 3d) ----------------------------------------------
+
+σ numReg=906
+
+-- todos os nomes de farmacos
+
+q1 = π nome (farmaco) 
+
+-- farmacos prescritos pela farmaceutica com o numReg=906
+
+q2 = σ numRegFarm=906 (presc_farmaco)
+q3 = π nomeFarmaco (q2)
+-- a diferenca da os que ela nunca prescreveu
+q1-q3
+
+-- 3 e) ----------------------------------------------
+-- medicamentos vendidos
+q1 = σ prescricao.farmacia!=null (prescricao)
+lista das farmacias, com a quantidade de medicamentos que cada farmaceutica vendeu
+γ farmacia, presc_farmaco.numRegFarm; count(nomeFarmaco)->numeroFarmacosVendidos (presc_farmaco ⨝ q1)
+
+
+-- 3 f) ----------------------------------------------
+
+-- lista pacientes prescritos
+q1= π numPresc,numUtente,numMedico (prescricao)
+q2= γ numUtente; count(numMedico)->totalMedicosQuePrescreveram (q1)
+
+-- num dos utentes que receberam presc por mais que um médico
+q3= σ totalMedicosQuePrescreveram>1 (q2)
+
+-- lista pacientes
+q4= π numUtente,nome (paciente)
+
+-- lista dos pacientes que tiveram prescrições de médicos diferentes
+π paciente.numUtente,nome (q3 ⨝ prescricao.numUtente=paciente.numUtente (q4))
+
+
+
+

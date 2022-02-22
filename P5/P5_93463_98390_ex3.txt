@@ -1,0 +1,84 @@
+
+-- EXERCICIO 5.3
+-- G1P3: Anastasiya Lykholat 93436, Mariana Rosa 98390
+/*
+-- 3a)--------------------------------------------
+--sem prescricoes:
+σ numPresc=0
+(γ paciente.nome;count(numPresc)-> numPresc
+(prescricao ⟖ prescricao.numUtente = paciente.numUtente (paciente)))
+
+*/
+
+-- 3b)----------------------------------------------
+/*
+-- lista de médicos
+q1= π numSNS,especialidade (medico)
+
+-- lista de prescricoes atribuidas pelos medicos
+q2= π numPresc, numMedico (prescricao)
+
+q3= q1 ⨝ numSNS=numMedico (q2)
+
+
+-- Num de prescrições por especialidade médica
+γ especialidade; count(numPresc)->TotalPresc (q3)
+
+*/
+
+
+-- 3c)----------------------------------------------
+/*
+q1= π numPresc,farmacia (prescricao)
+
+-- Num prescrições processadas por farmácia
+σ farmacia≠null (γ farmacia; count(numPresc)->TotalPresc (q1))
+
+*/
+
+
+
+-- 3d) ----------------------------------------------
+/*
+σ numReg=906
+
+-- todos os nomes de farmacos
+
+q1 = π nome (farmaco) 
+
+-- farmacos prescritos pela farmaceutica com o numReg=906
+q2 = σ numRegFarm=906 (presc_farmaco)
+q3 = π nomeFarmaco (q2)
+
+-- a diferenca da os que ela nunca prescreveu
+q1-q3
+
+*/
+
+-- 3 e) ----------------------------------------------
+/*
+-- medicamentos vendidos
+q1 = σ prescricao.farmacia!=null (prescricao)
+
+-- lista das farmacias, com a quantidade de medicamentos que cada farmaceutica vendeu
+γ farmacia, presc_farmaco.numRegFarm; count(nomeFarmaco)->numeroFarmacosVendidos (presc_farmaco ⨝ q1)
+*/
+
+-- 3 f) ----------------------------------------------
+*/
+-- lista pacientes prescritos
+q1= π numPresc,numUtente,numMedico (prescricao)
+q2= γ numUtente; count(numMedico)->totalMedicosQuePrescreveram (q1)
+
+-- num dos utentes que receberam presc por mais que um médico
+q3= σ totalMedicosQuePrescreveram>1 (q2)
+
+-- lista pacientes
+q4= π numUtente,nome (paciente)
+
+-- lista dos pacientes que tiveram prescrições de médicos diferentes
+π paciente.numUtente,nome (q3 ⨝ prescricao.numUtente=paciente.numUtente (q4))
+*/
+
+
+

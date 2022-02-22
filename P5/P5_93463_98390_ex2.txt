@@ -1,0 +1,42 @@
+-- EXERCICIO 5.2
+-- G1P3: 93436,98390
+
+-- 2a) ----------------------------------------------
+/*
+-- lista de fornecedores
+q1 = π nif,nome (fornecedor)
+q2 = π numero,fornecedor (encomenda)
+-- selecionar da lista de fornecedores, quais nao tem encomendas
+π fornecedor.nome (σ encomenda.fornecedor=null (q1 ⟕ fornecedor=null (q2)))
+*/
+-- 2b) ----------------------------------------------
+/*
+-- lista dos itens
+q1= π numEnc,codProd,unidades (item)
+
+-- a media das unidades encomendadas por cada produto
+γ codProd; avg(unidades)->MediaUnidades (q1)
+*/
+-- 2c) ----------------------------------------------
+/*
+q1= π numEnc,codProd (item)
+
+q2= γ numEnc; count(codProd)->Variedade (q1)
+
+-- Media de prods por encomenda
+γ avg(Variedade)->Media (q2)
+
+*/
+-- 2d) ----------------------------------------------
+/* 
+-- produtos e unidades
+
+q1 = π numEnc,codProd,unidades (item)
+-- os fornecedores e numero das encomendas
+q2 = π numero,fornecedor (encomenda)
+
+-- listar o conteudo encomendas (mesmo numero) fornecedias por cada fornecedorr
+q3 = q1 ⨝ numEnc=numero (q2)
+γ fornecedor, codProd; sum(unidades)->TotalUnidades (q3)
+
+*/

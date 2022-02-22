@@ -1,0 +1,9 @@
+C:\Users\maria\Documents\2º Semestre\BD\P_BD\P8\Aula8_Material\ContactsC#\Contacts\bin\Debug\Contacts.exe
+C:\Users\maria\Documents\2º Semestre\BD\P_BD\P8\Aula8_Material\ContactsC#\Contacts\bin\Debug\Contacts.pdb
+C:\Users\maria\Documents\2º Semestre\BD\P_BD\P8\Aula8_Material\ContactsC#\Contacts\obj\x86\Debug\Contacts.csprojAssemblyReference.cache
+C:\Users\maria\Documents\2º Semestre\BD\P_BD\P8\Aula8_Material\ContactsC#\Contacts\obj\x86\Debug\Contacts.Form1.resources
+C:\Users\maria\Documents\2º Semestre\BD\P_BD\P8\Aula8_Material\ContactsC#\Contacts\obj\x86\Debug\Contacts.Properties.Resources.resources
+C:\Users\maria\Documents\2º Semestre\BD\P_BD\P8\Aula8_Material\ContactsC#\Contacts\obj\x86\Debug\Contacts.csproj.GenerateResource.cache
+C:\Users\maria\Documents\2º Semestre\BD\P_BD\P8\Aula8_Material\ContactsC#\Contacts\obj\x86\Debug\Contacts.csproj.CoreCompileInputs.cache
+C:\Users\maria\Documents\2º Semestre\BD\P_BD\P8\Aula8_Material\ContactsC#\Contacts\obj\x86\Debug\Contacts.exe
+C:\Users\maria\Documents\2º Semestre\BD\P_BD\P8\Aula8_Material\ContactsC#\Contacts\obj\x86\Debug\Contacts.pdb
